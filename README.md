@@ -23,7 +23,7 @@
 
 运行`npm run deploy`前，需要将`package.json`中的`homepage`条目改为
 
-`"homepage": "https://qiuyedx.github.io/os_demo_deploy",`
+`"homepage": "https://qiuyedx.github.io/os_demo_deploy/",`
 
 ### 排查
 
