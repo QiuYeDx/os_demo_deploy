@@ -18,8 +18,8 @@ export default class Home extends React.Component {
                 <TopBar/>
                 <Container>
                     <Wrap>
-                        <H1>操作系统实验<br/>
-                            实验一演示</H1>
+                        <H1>OS Demo in React<br/>
+                            实验一</H1>
                         <Gap/>
                         <Text>1.设计并实现一个模拟进程状态转换及其相应PCB组织结构变化的程序;<br/>
                             2.独立设计、编写、调试程序;<br/>
