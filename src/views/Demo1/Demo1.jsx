@@ -5,7 +5,7 @@ import SideBarB from "../../components/SideBarB/SideBarB";
 // import DisplayContext from "../../components/DisplayContext/DisplayContext";
 import {Container} from "./Styled.js";
 
-export default class Work extends React.Component {
+export default class Demo1 extends React.Component {
     constructor(props) {
         super(props);
     }

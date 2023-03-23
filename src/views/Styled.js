@@ -37,8 +37,8 @@ export const H1 = styled.div`
     white-space: nowrap;
     position: absolute;
     width: 580px;
-    top: 250px;
-    left: 100px;
+    top: ${props => props.inputTop || "250px"};
+    left: ${props => props.inputLeft || "100px"};
     z-index: 100;
 `
 
@@ -131,4 +131,54 @@ export const MainButton = styled.div`
         opacity: 0.8;
         box-shadow: 0.5px 0.5px 4px 0.5px rgba(0, 0, 0, 0.2);
     }
+`
+
+export const NextButton = styled.div`
+  position: absolute;
+  top: ${props => props.inputTop || "410px"};
+  left: ${props => props.inputLeft || "760px"};
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #1c1914;
+  color: white;
+  line-height: 36px;
+  text-align: center;
+  font-size: 30px;
+  cursor: pointer;
+  user-select: none;
+  z-index: 1000;
+  opacity: 0.7;
+  transition: all 0.25s;
+  :hover {
+    transition: all 0.15s;
+    opacity: 1;
+    box-shadow: 2px 2px 8px 2px rgba(0, 0, 0, 0.3);
+  }
+  :active {
+    transition: all 0.08s;
+    opacity: 0.8;
+    box-shadow: 0.5px 0.5px 4px 0.5px rgba(0, 0, 0, 0.2);
+  }
+`
+
+export const NextButtonSVG = styled.div`
+  transform: rotate(0.5turn);
+  background-image: url(./last.svg);
+  background-size: contain;
+  height: 49px;
+  width: 28px;
+  position: absolute;
+  left: 28px;
+  top: 15px;
+`
+
+export const LastButtonSVG = styled.div`
+  background-image: url(./last.svg);
+  background-size: contain;
+  height: 49px;
+  width: 28px;
+  position: absolute;
+  left: 22px;
+  top: 15px;
 `
