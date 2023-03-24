@@ -115,14 +115,40 @@ export default function SideBarB() {
     let [newMem, setNewMem] = useState(0);
     let [pm, setPm] = useState(new ProcessManager(MAX_MEMORY));
     let [refresh, setRefresh] = useState(true);
+    // let [btnListen, setBtnListen] = useState(false);
 
-    let dataList;
     let statusLineRef0 = useRef();
     let statusLineRef1 = useRef();
     let statusLineRef2 = useRef();
     let statusLineRef3 = useRef();
+    let btnRef = useRef();
+    let inputRef = useRef();
+
+    function debounce(func, wait, immediate) {
+        let timer;
+
+        return function () {
+            let context = this;
+            let args = arguments;
+
+            if (timer) clearTimeout(timer);
+            if (immediate) {
+                var callNow = !timer;
+                timer = setTimeout(() => {
+                    timer = null;
+                }, wait)
+                if (callNow) func.apply(context, args)
+            } else {
+                timer = setTimeout(function () {
+                    func.apply(context, args)
+                }, wait);
+            }
+        }
+    }
+
     // 实现鼠标拖拽横向滚动
     useEffect(() => {
+        console.log("Effect!");
         const on = function(
             element,
             event,
@@ -190,9 +216,34 @@ export default function SideBarB() {
             dragHandler(e);
         });
 
-    }, [dataList]);
+        // 监听Enter
+        // document.removeEventListener("keyup", debounce(handle, 50, true));
+        // document.addEventListener("keyup", debounce(handle, 50, true));
+        document.addEventListener("keyup", handle);
+        console.log("add!");
+        function handle(e){
+            if(e.key === "Enter" && e.target === inputRef.current)
+                btnRef.current.click();
+        }
+        // if(btnListen){
+        //     document.removeEventListener("keyup", debounce(handle, 50, true));
+        //     console.log("remove!");
+        //     document.addEventListener("keyup", debounce(handle, 50, true));
+        // }
+        // else{
+        //     setBtnListen(true);
+        //     console.log("add!");
+        //     document.addEventListener("keyup", debounce(handle, 50, true));
+        // }
 
-    // 以下是未调试完美的代码，包含节流函数和平滑滚动，仅供日后继续完善：
+
+        return () => {
+            document.removeEventListener("keyup", handle);
+            console.log("remove!");
+        }
+
+    }, [refresh]);
+
     // function throttle(func, wait){
     //     let timer = null;
     //     return function(){
@@ -204,7 +255,8 @@ export default function SideBarB() {
     //         }, wait);
     //     }
     // }
-    //
+
+    // 以下是未调试完美的代码，包含节流函数和平滑滚动，仅供日后继续完善：
     // function handle(event){
     //     let el = statusLineRef.current;
     //     if (event.deltaY > 0) {
@@ -226,10 +278,10 @@ export default function SideBarB() {
             <Container>
                 <H2 inputTop={"166px"} inputLeft={"58px"}>Please click the button below:</H2>
                 <H3 inputTop={"240px"} inputLeft={"115px"}>New Process's size(M)</H3>
-                <InputText value={newMem} maxLength={5} onChange={(e)=>{
+                <InputText value={newMem} maxLength={5} ref={inputRef} onChange={(e)=>{
                     setNewMem(e.target.value == 0 ? '' : parseInt(e.target.value));
                 }}/>
-                <MainButton left={"100px"} top={"350px"} onClick={() => {
+                <MainButton left={"100px"} top={"350px"} ref={btnRef} onClick={() => {
                     if(newMem === 0){
                         alert("New process's size cannot be zero!");
                         return;
