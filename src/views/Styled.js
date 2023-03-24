@@ -53,6 +53,20 @@ export const Text = styled.div`
     top: 600px;
     left: 100px;
     z-index: 100;
+
+  opacity: 0;
+  animation: 0.8s ease slidein;
+  animation-fill-mode: forwards;
+  @keyframes slidein {
+    from {
+      opacity: 0;
+      transform: translateX(40px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
 `
 
 export const Gap = styled.div`

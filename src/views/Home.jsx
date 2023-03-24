@@ -40,29 +40,29 @@ export default class Home extends React.Component {
 
     getInfoText(index){
         switch(index){
-            case 1: return <Text>1.设计并实现一个模拟进程状态转换及其相应PCB组织结构变化的程序;<br/>
+            case 1: return <Text key={1}>1.设计并实现一个模拟进程状态转换及其相应PCB组织结构变化的程序;<br/>
                                  2.独立设计、编写、调试程序;<br/>
                                  3.程序界面应能反映出在模拟条件下，进程之间状态转换及其对应的PCB组织的变化。<br/>
                            </Text>;
-            case 2: return <Text>进程同步和通信:<br/>
-                                 生产者和消费者问题模拟<br/>
-                                 具体内容和要求请看PPT或报告要求<br/>
+            case 2: return <Text key={2}>- 进程同步和通信<br/>
+                                 - 生产者和消费者问题模拟<br/>
+                                 - 具体内容和要求请看PPT或报告要求<br/>
                            </Text>;
-            case 3: return <Text>
-                                 进程的管道通信:<br/>
-                                 编程实现进程的管道通信程序<br/>
-                                 具体内容和要求请看PPT或报告要求<br/>
+            case 3: return <Text key={3}>
+                                 - 进程的管道通信<br/>
+                                 - 编程实现进程的管道通信程序<br/>
+                                 - 具体内容和要求请看PPT或报告要求<br/>
                            </Text>;
-            case 4: return <Text>
-                                 页面置换算法:<br/>
-                                 编程实现FIFO和LRU算法<br/>
-                                 具体内容和要求请看PPT或报告要求<br/>
+            case 4: return <Text key={4}>
+                                 - 页面置换算法<br/>
+                                 - 编程实现FIFO和LRU算法<br/>
+                                 - 具体内容和要求请看PPT或报告要求<br/>
                           </Text>;
-            case 5: return <Text>
+            case 5: return <Text key={5}>
                                  ---[FBI WARNNING]---<br/>
                                  您要找的实验不存在(＾Ｕ＾)ノ~ＹＯ<br/>
                            </Text>;
-            default: return <Text>
+            default: return <Text key={0}>
                                  您是从外星球来的吗？<br/>
                             </Text>;
         }
