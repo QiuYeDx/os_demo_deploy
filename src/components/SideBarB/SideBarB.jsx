@@ -117,7 +117,11 @@ export default function SideBarB() {
     let [refresh, setRefresh] = useState(true);
 
     let dataList;
-    let statusLineRef = useRef();
+    let statusLineRef0 = useRef();
+    let statusLineRef1 = useRef();
+    let statusLineRef2 = useRef();
+    let statusLineRef3 = useRef();
+    // 实现鼠标拖拽横向滚动
     useEffect(() => {
         const on = function(
             element,
@@ -147,7 +151,6 @@ export default function SideBarB() {
             },
         };
 
-        // 实现鼠标拖拽横向滚动
         const scrollMousedown = (event) => {
             targetDrag.isDown = true;
             targetDrag.coord.x = event.pageX;
@@ -159,28 +162,34 @@ export default function SideBarB() {
             targetDrag.coord.y = 0;
         };
 
-        let el = statusLineRef.current;
+        function dragHandler(el){
+            const scrollMousemove = (event) => {
+                let movX = targetDrag.coord.x - event.pageX;
+                targetDrag.coord.x = event.pageX;
+                if (targetDrag.isDown) {
+                    el.scrollLeft = el.scrollLeft + movX;
+                }
+            };
 
-        const scrollMousemove = (event) => {
-            let movX = targetDrag.coord.x - event.pageX;
-            targetDrag.coord.x = event.pageX;
-            if (targetDrag.isDown) {
-                el.scrollLeft = el.scrollLeft + movX;
-            }
-        };
-
-        if (el) {
-            on(el, 'mousedown', scrollMousedown);
-            on(document, 'mouseup', scrollMouseup);
-            on(el, 'mousemove', scrollMousemove);
-        }
-        return () => {
             if (el) {
-                off(el, 'mousedown', scrollMousedown);
-                off(document, 'mouseup', scrollMouseup);
-                off(el, 'mousemove', scrollMousemove);
+                on(el, 'mousedown', scrollMousedown);
+                on(document, 'mouseup', scrollMouseup);
+                on(el, 'mousemove', scrollMousemove);
             }
-        };
+            return () => {
+                if (el) {
+                    off(el, 'mousedown', scrollMousedown);
+                    off(document, 'mouseup', scrollMouseup);
+                    off(el, 'mousemove', scrollMousemove);
+                }
+            };
+        }
+
+        let els = [statusLineRef0.current, statusLineRef1.current, statusLineRef2.current, statusLineRef3.current];
+        els.forEach((e)=>{
+            dragHandler(e);
+        });
+
     }, [dataList]);
 
     // 以下是未调试完美的代码，包含节流函数和平滑滚动，仅供日后继续完善：
@@ -278,7 +287,7 @@ export default function SideBarB() {
                 <LabelText left={"1030px"} top={"650px"} hasBorder={false}>{mem}/{MAX_MEMORY}M</LabelText>
 
                 <Borderline/>
-                <ProcessList top={"248px"} ref={statusLineRef} id={"aaa"}>
+                <ProcessList top={"248px"} ref={statusLineRef0} id={"aaa"}>
                     {pm.getNewProcess().map((p, i)=>{
                         return <ProcessText hasBorder={true}>
                             {'Process' + p.index}
@@ -286,7 +295,7 @@ export default function SideBarB() {
                         </ProcessText>
                     })}
                 </ProcessList>
-                <ProcessList top={"348px"}>
+                <ProcessList top={"348px"} ref={statusLineRef1}>
                     {pm.getReadyProcess().map((p, i)=>{
                         return <ProcessText hasBorder={true}>
                             {'Process' + p.index}
@@ -294,7 +303,7 @@ export default function SideBarB() {
                         </ProcessText>
                     })}
                 </ProcessList>
-                <ProcessList top={"448px"}>
+                <ProcessList top={"448px"} ref={statusLineRef2}>
                     {pm.getRunningProcess().map((p, i)=>{
                         return <ProcessText hasBorder={true}>
                             {'Process' + p.index}
@@ -302,7 +311,7 @@ export default function SideBarB() {
                         </ProcessText>
                     })}
                 </ProcessList>
-                <ProcessList top={"548px"}>
+                <ProcessList top={"548px"} ref={statusLineRef3}>
                     {pm.getBlockProcess().map((p, i)=>{
                         return <ProcessText hasBorder={true}>
                             {'Process' + p.index}
