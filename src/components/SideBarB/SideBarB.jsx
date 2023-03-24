@@ -217,32 +217,19 @@ export default function SideBarB() {
         });
 
         // 监听Enter
-        // document.removeEventListener("keyup", debounce(handle, 50, true));
-        // document.addEventListener("keyup", debounce(handle, 50, true));
         document.addEventListener("keyup", handle);
         console.log("add!");
         function handle(e){
             if(e.key === "Enter" && e.target === inputRef.current)
                 btnRef.current.click();
         }
-        // if(btnListen){
-        //     document.removeEventListener("keyup", debounce(handle, 50, true));
-        //     console.log("remove!");
-        //     document.addEventListener("keyup", debounce(handle, 50, true));
-        // }
-        // else{
-        //     setBtnListen(true);
-        //     console.log("add!");
-        //     document.addEventListener("keyup", debounce(handle, 50, true));
-        // }
-
 
         return () => {
             document.removeEventListener("keyup", handle);
             console.log("remove!");
         }
 
-    }, [refresh]);
+    }, []);
 
     // function throttle(func, wait){
     //     let timer = null;
@@ -270,8 +257,6 @@ export default function SideBarB() {
     // el.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
     //
     // window.addEventListener("wheel", throttle(handle, 200));
-
-
 
     return (
         <div>
