@@ -86,7 +86,7 @@ export default class Home extends React.Component {
                         </NextButton>
                         {/*<MainButton onClick={this.gotoWork}>Get Started !</MainButton>*/}
                         <MainButton onClick={()=>{
-                            if(this.state.index !== 1){
+                            if(this.state.index !== 1 && this.state.index !== 2){
                                 alert("该实验还没完成哦！");
                                 return;
                             }
